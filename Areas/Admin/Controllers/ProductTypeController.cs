@@ -2,6 +2,7 @@
 using OnlineShope.Data;
 using OnlineShope.Models;
 using System.Drawing.Text;
+using static System.Collections.Specialized.BitVector32;
 
 namespace OnlineShope.Areas.Admin.Controllers
 {
@@ -34,6 +35,7 @@ namespace OnlineShope.Areas.Admin.Controllers
             {
                 _db.ProductTypes.Add(productType);  
                 await _db.SaveChangesAsync();
+                TempData["save"] = "Product Add Succesfully";
                 return RedirectToAction("Index");
             }
             return View(productType);
@@ -65,7 +67,9 @@ namespace OnlineShope.Areas.Admin.Controllers
             {
                 _db.Update(productType);
                 await _db.SaveChangesAsync();
+                TempData["update"] = "Product Update Succesfully";
                 return RedirectToAction("Index");
+
             }
             return View(productType);
         }
@@ -92,6 +96,51 @@ namespace OnlineShope.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(ProductType productType)
         {
+            return View(productType);
+        }
+
+
+        // Delete Get Action Method
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var producttype = _db.ProductTypes.Find(id);
+            if (producttype == null)
+            {
+                return NotFound();
+            }
+            return View(producttype);
+        }
+
+        // Delete Post Action Method
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete( int? id, ProductType productType)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            if (productType == null)
+            {
+                return NotFound();
+            }
+            if(id != productType.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                _db.Remove(productType);
+                await _db.SaveChangesAsync();
+                TempData["delete"] = "Product Delete Succesfully";
+                return RedirectToAction("Index");
+            }
             return View(productType);
         }
 

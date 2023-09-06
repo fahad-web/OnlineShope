@@ -25,7 +25,7 @@
             <th>@Html.DisplayNameFor(c => c.ProductTypes)</th>
             <th>@Html.DisplayNameFor(c => c.Price)</th>
             <th></th>
-            <th></th>
+            <th>Feature List</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -39,3 +39,26 @@
         }
     </table>
 </div>
+
+@section Scripts {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var Save = "@TempData["save"]";
+            if (Save != '') {
+                alertify.success(Save);
+            }
+
+            var Delete = "@TempData["delete"]";
+            if (Delete != '') {
+                alertify.success(Delete);
+            }
+
+            var Update = "@TempData["update"]";
+            if (Update != '') {
+                alertify.success(Update);
+            }
+        })
+    </script>
+}
