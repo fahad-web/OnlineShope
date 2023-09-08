@@ -2,13 +2,12 @@
 
 namespace OnlineShope.Models
 {
-    public class ProductType
+    public class SpacialTag
     {
         [Key]
         public int Id { get; set; }
-
         [Required]
-        [Display(Name = "Product Type")]
-        public string? ProductTypes { get; set; }
+        [Display(Name = "Condition")]
+        public string? Condition { get; set; }
     }
 }

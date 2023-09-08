@@ -12,5 +12,7 @@ namespace OnlineShope.Data
         }
 
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Products> Pruducts { get; set; }
+        public DbSet<SpacialTag> SpacialTags { get; set; }
     }
 }
