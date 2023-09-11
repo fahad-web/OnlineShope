@@ -4,16 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OnlineShope.Models
 {
     public class Products
-    {
-        internal object ProductType;
-
+    { 
         [Key]
         public int Id { get; set; }
 
         [Required]
         public string? Name { get; set; }
         [Required]
-        public string? Price { get; set; }
+        public decimal? Price { get; set; }
         [Display(Name = "Image")]
         public string? Img { get; set; }
 

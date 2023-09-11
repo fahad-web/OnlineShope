@@ -32,6 +32,7 @@ namespace OnlineShope.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 _db.SpacialTags.Add(spacialTag);
                 await _db.SaveChangesAsync();
                 TempData["save"] = "Product Add Succesfully";

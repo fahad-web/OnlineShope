@@ -14,35 +14,76 @@
         </h2>
     </div>
     <div class="col-6 text-right">
-        <a class="btn btn-info" asp-action="Create"><i class="fa-sharp fa-regular fa-plus"></i> New Product List</a>
+        <a class="btn btn-info" asp-action="Create"><i class="fa-sharp fa-regular fa-plus"></i>Add New Product </a>
     </div>
+    <form method="post" class="mt-5 text-left">
+        <div class="row">
+            <div class="col-3">
+                <input type="text" name="lowPrice" class="form-control" />
+            </div>
+            <div class="col-3">
+                <input type="text" name="highPrice" class="form-control" />
+            </div>
+            <div class="col-3">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </form>
 </div>
 <br />
 <div>
-    <table class="table table-info border-1">
-        <tr class="table-info">
-            <th>@Html.DisplayNameFor(c => c.Name)</th>
-            <th>@Html.DisplayNameFor(c => c.Price)</th>
-            <th>@Html.DisplayNameFor(c => c.ProductTypeId)</th>
-            <th>@Html.DisplayNameFor(c => c.ProductColor)</th>
-            <th>@Html.DisplayNameFor(c => c.SpacialTagId)</th>
-            <th>@Html.DisplayNameFor(c => c.Available)</th>
-            
-            <th>Feature List</th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Price</td>
-                <td>@item.productType.ProductTypes</td>
-                <td>@item.ProductColor</td>
-                <td>@item.SpacialTag.Condition</td>
-                <td>@item.Available</td>
-                
-                    <partial name="_ButtonPartial" model="@item.Id" />
-                
+    <table class="table table-info border-1" id="myTable">
+        <thead>
+            <tr class="table-info">
+                <th>@Html.DisplayNameFor(c => c.Name)</th>
+                <th>@Html.DisplayNameFor(c => c.Price)</th>
+                <th>@Html.DisplayNameFor(c => c.ProductTypeId)</th>
+                <th>@Html.DisplayNameFor(c => c.ProductColor)</th>
+                <th>@Html.DisplayNameFor(c => c.SpacialTagId)</th>
+                <th>@Html.DisplayNameFor(c => c.Available)</th>
+
+                <th>Feature List</th>
             </tr>
-        }
+        </thead>
+        
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.productType.ProductTypes</td>
+                    <td>@item.ProductColor</td>
+                    <td>@item.SpacialTag.Condition</td>
+                    <td>@item.Available</td>
+                    <partial name="_ButtonForProductPartial" model="@item.Id" />
+                </tr>
+            }
+        </tbody>
     </table>
+    <h3 class="text-center text-danger">@TempData["Message"]</h3>
 </div>
+@section Scripts {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            let table = new DataTable('#myTable', 
+            {
+                dom: 'Bfrtip',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            });
+
+            var Save = "@TempData["Save"]";
+            if (Save != '') {
+                alertify.success(Save);
+            }
+
+            var Delete = "@TempData["Delete"]";
+            if (Delete != '') {
+                alertify.success(Delete);
+            }
+        })
+    </script>
+}

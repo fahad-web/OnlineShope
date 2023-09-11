@@ -33,6 +33,12 @@ namespace OnlineShope.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var searchProdutType = _db.ProductTypes.FirstOrDefault(c => c.ProductTypes==productType.ProductTypes);
+                if(searchProdutType != null)
+                {
+                    ViewBag.message = "ProductType already Exist";
+                    return View(productType);
+                }
                 _db.ProductTypes.Add(productType);  
                 await _db.SaveChangesAsync();
                 TempData["save"] = "Product Add Succesfully";
@@ -65,6 +71,12 @@ namespace OnlineShope.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var searchProdutType = _db.ProductTypes.FirstOrDefault(c => c.ProductTypes == productType.ProductTypes);
+                if (searchProdutType != null)
+                {
+                    ViewBag.message = "ProductType already Exist";
+                    return View(productType);
+                }
                 _db.Update(productType);
                 await _db.SaveChangesAsync();
                 TempData["update"] = "Product Update Succesfully";

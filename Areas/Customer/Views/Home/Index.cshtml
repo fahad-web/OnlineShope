@@ -1,8 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<br />
+<div class="row">
+    @foreach(var product in Model)
+    {
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="my-0 ">
+                        <label>@product.Name</label>
+                    </h4>
+                </div>
+                    <img src="@product.Img" class="card-img-top card-" height="300px" />
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="text-danger"><b>Price :@product.Price</b> </h4>
+                        </div>
+                        <div>
+                            <a type="submit" asp-action="Details" class="btn  btn-outline-info text-black" asp-route-id="@product.Id">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
